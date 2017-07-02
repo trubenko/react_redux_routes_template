@@ -1,6 +1,7 @@
 import React from 'react';
-import {Route, IndexRoute, Redirect} from 'react-router';
 import App from './components/App'
+
+import {browserHistory , Router} from 'react-router';
 
 const Tab1 = function () {
 
@@ -19,11 +20,34 @@ const Tab3 = function () {
     return <div>Tab 3 info</div>
 }
 
+
+const ComponentRoutes = {
+    component: App,
+    path: '/',
+    indexRoute: {component: Tab1},
+    childRoutes: [
+        {
+            path: '/tab1',
+            component: Tab1
+        },
+        {
+            path: '/tab2',
+            component: Tab2
+        },
+        {
+            path: '/tab3',
+            component: Tab3
+        }/*, EXAMPLE ASYNC
+        {
+            path: '/tab4',
+            getComponent(location, cb){
+                System.import('./components/App')
+                    .then(module=> cb(null, module.default))
+            }
+        }*/
+    ]
+}
+
 export default (
-    <Route path="/" component={App}>
-        <IndexRoute component={Tab1}/>
-        <Route path="/tab1" component={Tab1}/>
-        <Route path="/tab2" component={Tab2}/>
-        <Route path="/tab3" component={Tab3}/>
-    </Route>
+    <Router history={ browserHistory } routes={ComponentRoutes }/>
 )

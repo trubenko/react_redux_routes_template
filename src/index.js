@@ -9,12 +9,11 @@ import logger from 'redux-logger'
 
 const store = createStore(reducer,{}, applyMiddleware(logger));
 
-import {browserHistory , Router} from 'react-router';
 import routes from './routers'
 
 ReactDOM.render(
     <Provider store={store} >
-        <Router history={ browserHistory } routes={ routes }/>
+        { routes }
     </Provider>,
     document.getElementById('root')
 )
